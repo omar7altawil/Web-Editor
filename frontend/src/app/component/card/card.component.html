@@ -1,0 +1,90 @@
+<div>
+<!-- Filters -->
+<mat-form-field>
+    <mat-select   [(ngModel)]="selectedSubject"  placeholder="select Subject"  >
+      <mat-option *ngFor="let sub of Subject" [value]="sub" (click)="refreshList()">{{sub}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+      <mat-select [(ngModel)]="selectedGrade"  placeholder="select Grade">
+        <mat-option *ngFor="let gr of Grade" [value]="gr" (click)="refreshList()">{{gr}}</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="selectedStatus"  placeholder="select status">
+      <mat-option *ngFor="let st of Status" [value]="st" (click)="refreshList()">{{st}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+<!-- Language -->
+<mat-slide-toggle (change)="Arabic()" style="float: right;"><i class="material-icons">language</i> </mat-slide-toggle> 
+<pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+</div>
+<hr>
+<!-- Card -->
+<ul>
+<li *ngFor="let question of questions | paginate: { itemsPerPage: 10, currentPage: p }">
+  <!-- Delete -->
+  <mat-card-actions>
+    <button  (click)="delete(question._id)" mat-mini-fab color="primary"><i class="material-icons">delete</i></button>
+  </mat-card-actions>
+  <!-- Edit -->
+  <mat-card-actions>
+    <button  mat-mini-fab color="warn" routerLink="/form/edit/{{question._id}}" ><i class="material-icons">edit</i></button>
+  </mat-card-actions>
+  <!-- Review -->
+  <mat-card-actions>
+    <button *ngIf="!question.reviewed else nr" mat-icon-button style="float: right"  (click)="review(question)"><i class="material-icons">favorite_border</i></button>
+    <ng-template  #nr><button mat-icon-button style="float: right" (click)="review(question)"><mat-icon color='warn' aria-label="Example icon-button with a heart icon">favorite</mat-icon></button></ng-template>
+  </mat-card-actions>
+
+  <span id="info">
+      <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <!-- Question -->
+      <mat-card-title class='htmlquestion' *ngIf="!checked; else qa" [innerHTML]='question.question_text'></mat-card-title>
+      <ng-template #qa><mat-card-title class='htmlquestion'><p [innerHTML]='question.arabic_translation_of_question'></p></mat-card-title></ng-template>
+    </mat-card-header>
+  </span>  
+    <!-- Image -->
+    <img *ngIf="question_picture!=null;else ia" mat-card-image src={{question_picture}}/>
+    <ng-template #ia><img  mat-card-image src='http://www.saal.ai/wp-content/uploads/2017/10/saal-png.png'></ng-template>
+    <span id="info">
+    <mat-card-content>
+      <!-- Hint -->
+      <span class=def>Hint:</span>
+      <span *ngIf="!checked; else ha" [innerHTML]='question.hint' ></span>
+      <ng-template  #ha><p [innerHTML]='question.arabic_translation_of_hint' ></p></ng-template>
+      <br>
+      <!-- Options -->
+      <mat-radio-group class="example-radio-group" class='htmlquestion' [(ngModel)]="question.correct_options" disabled="true" >
+          <mat-radio-button class="example-radio-button"  value="A" ><p [innerHTML]="question.option_A"></p></mat-radio-button>
+          <mat-radio-button class="example-radio-button"  value="B"><p [innerHTML]="question.option_B"></p></mat-radio-button>
+        <br>
+          <mat-radio-button class="example-radio-button" value="C"><p [innerHTML]="question.option_C"></p></mat-radio-button>
+          <mat-radio-button class="example-radio-button" value="D"><p [innerHTML]="question.option_D"></p></mat-radio-button>
+        </mat-radio-group>
+      <!-- Justification -->
+      <p class=def>Justification:</p>
+      <span *ngIf="!checked; else ja" class='htmlquestion' [innerHTML]="question.justification"></span>
+      <ng-template  #ja><span class='htmlquestion' [innerHTML]="question.arabic_translation_of_justification"></span></ng-template>
+      <hr>
+      <!-- More Info -->
+      <mat-card-subtitle style="color: crimson;font-weight: bold;">Subject: {{question.subject}}</mat-card-subtitle>
+      <mat-card-subtitle style="color:blue;font-weight: bold;">Grade: {{question.Grade}}</mat-card-subtitle>
+      <mat-card-subtitle style="color: rgb(220, 157, 20);font-weight: bold;">Question Class: {{question.question_class}}</mat-card-subtitle>
+      <mat-card-subtitle style="color: rgba(20, 220, 20, 0.89);font-weight: bold;">Chapter: {{question.chapter_name}}</mat-card-subtitle>
+      <mat-card-subtitle style="color: rgb(213, 20, 220);font-weight: bold;">Topic: {{question.sub_topic}}</mat-card-subtitle>
+      <mat-card-subtitle style="color: rgb(20, 207, 220);font-weight: bold;">Difficulty: {{question.difficulty_level}}</mat-card-subtitle>
+      <mat-card-subtitle style="color: rgb(220, 200, 20);font-weight: bold;">Question Type: {{question.question_type}}</mat-card-subtitle>
+      <mat-card-subtitle style="color: rgb(120, 150, 20);font-weight: bold;">Content Type: {{question.content_type}}</mat-card-subtitle>
+      <mat-card-subtitle style="color: rgb(220, 20, 20);font-weight: bold;">Skill: {{question.skill_profile}}</mat-card-subtitle>
+      <mat-card-subtitle style="color: rgb(50, 20, 220); font-weight: bold;">Duration: {{question.duration}}</mat-card-subtitle>
+
+    </mat-card-content>
+  </span>
+</li>
+</ul>
+<pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+

@@ -1,0 +1,22 @@
+<html>
+
+
+<head>
+  <!-- <base href="/"> -->
+  <meta charset="utf-8"> 
+  <link rel="stylesheet" href="http://math.com/math.css" />
+  <script src="http://math.com/jquery.min.js"></script>
+  <script src="http://math.com/math.js"></script>
+</head>
+
+
+<body>$texthere$<script>
+    var MQ = MathQuill.getInterface(2);
+    var problems = document.getElementsByClassName("ql-formula");
+    for (el = 0; el < problems.length; el++)
+      MQ.StaticMath(problems[el]);
+
+  </script>
+</body>
+
+</html>

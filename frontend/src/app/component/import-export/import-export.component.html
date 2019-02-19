@@ -1,0 +1,50 @@
+ 
+<div class="container">
+ 
+    <div class="navbar navbar-default">
+        <div class="navbar-header">
+            <h2>Import CSV File</h2>
+        </div>
+    </div>
+        <div>
+            <input 
+            style="display: none" 
+            type="file" (change)="onFileChanged($event)" #fileInput>
+          <button mat-flat-button color="primary"  (click)="fileInput.click()">Select File</button>
+          <h4 *ngIf="selectedFile">Name: {{filename}}</h4>
+          <h4 *ngIf="selectedFile">Size: {{filesize}}</h4>
+        </div>
+
+        <div  *ngIf="bar" >
+          <mat-progress-bar mode="buffer" ></mat-progress-bar>
+        </div>
+
+        <div class="navbar navbar-default">
+                <div class="navbar-header">
+                    <h2>Export CSV File</h2>
+                    <div>
+                            <!-- Filters -->
+                            <mat-form-field>
+                                <mat-select   [(ngModel)]="selectedSubject"  placeholder="select Subject"  >
+                                  <mat-option *ngFor="let sub of Subject" [value]="sub" (click)="refreshList()">{{sub}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            
+                              <mat-form-field>
+                                  <mat-select [(ngModel)]="selectedGrade"  placeholder="select Grade">
+                                    <mat-option *ngFor="let gr of Grade" [value]="gr" (click)="refreshList()">{{gr}}</mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                            
+                              <mat-form-field>
+                                <mat-select [(ngModel)]="selectedStatus"  placeholder="select status">
+                                  <mat-option *ngFor="let st of Status" [value]="st" (click)="refreshList()">{{st}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                </div>
+                <div>
+                    <button mat-flat-button color="primary"  (click)="export()" >Download</button>
+                </div>
+        </div>
+</div>

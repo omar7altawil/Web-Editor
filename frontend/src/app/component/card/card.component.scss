@@ -1,0 +1,57 @@
+.mat-form-field{
+  padding: 20px;
+}
+.mat-card-image{
+  float: right;
+  width: 200px;
+}
+.mat-card-heade{
+  padding: 60px;
+
+}
+.mat-card-subtitle{
+  padding: 15px;
+}
+
+.arabic{
+margin: 80%;
+}
+.example-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.mat-radio-button {
+  padding-left: 300px;
+}
+
+.mat-slide-toggle{
+  padding-left: 10px;
+}
+
+.mat-card-actions{
+  float: right;
+  padding: 10px;
+}
+#info{
+width:  900px;
+display:block;
+}
+
+.htmlquestion{
+  display:inline-block;
+}
+
+.def{
+  font-weight: bold;
+
+}
+.my-pagination /deep/ .ngx-pagination li {
+  color:black !important;
+background: #F2F2F2 !important;
+padding-right:1.7cm !important;
+margin: 0 !important;
+}
+.my-pagination /deep/ .ngx-pagination a, .ngx-pagination button {
+  color:black !important;
+}

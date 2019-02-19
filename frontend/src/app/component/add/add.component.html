@@ -1,0 +1,112 @@
+<div *ngIf="question">
+  <h1>{{mode}} Question #{{question._id}}</h1>
+  <mat-vertical-stepper [linear]="isLinear" #stepper>
+    <!-- Background -->
+    <mat-step>
+      <ng-template matStepLabel>Background</ng-template>
+      <!-- Subject -->
+      <mat-form-field>
+        <mat-select [(ngModel)]="question.subject" placeholder="Select Subject">
+          <mat-option *ngFor="let subject of Subject" [value]="subject">{{subject}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Grade -->
+      <mat-form-field>
+        <mat-select [(ngModel)]="question.Grade" placeholder="Select Grade">
+          <mat-option *ngFor="let grade of Grade" [value]="grade">{{grade}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Class -->        
+      <mat-form-field>
+        <mat-select [(ngModel)]="question.question_class" placeholder="Select Question Class">
+          <mat-option *ngFor="let class of QuestionClass" [value]="class">{{class}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Chapter -->
+      <mat-form-field *ngIf="question.subject && question.Grade">
+        <input matInput [(ngModel)]="question.chapter_name" placeholder="Chapter name">
+      </mat-form-field>
+      <!-- Topic -->
+      <mat-form-field>
+        <input matInput [(ngModel)]="question.sub_topic" placeholder="Topic name">
+      </mat-form-field>
+    </mat-step>
+    <!-- Content -->
+    <mat-step>
+      <ng-template matStepLabel>Question Content</ng-template>
+  
+      <mat-tab-group (selectedTabChange)="onLinkClick($event)">
+          <mat-tab  label="English Question"></mat-tab>
+          <mat-tab label="Arabic Question"></mat-tab>
+          <mat-tab label="English Hint"></mat-tab>
+          <mat-tab label="Arabic Hint"></mat-tab>
+          <mat-tab label="English Justification"></mat-tab>
+          <mat-tab label="Arabic Justification"></mat-tab>
+          <mat-tab label="Option A"></mat-tab>
+          <mat-tab label="Option B"></mat-tab>
+          <mat-tab label="Option C"></mat-tab>
+          <mat-tab label="Option D" ></mat-tab>
+        </mat-tab-group>
+        <button mat-icon-button style="margin-left: 160px;" (click)="save()"><i class="material-icons">save</i></button>
+        <mat-radio-group [(ngModel)]="question.correct_options" style="float:right; margin-top: 10px">
+            <mat-radio-button value="A" style="margin-right: 140px;"></mat-radio-button>
+            <mat-radio-button value="B" style="margin-right: 135px;"></mat-radio-button>
+            <mat-radio-button value="C" style="margin-right: 125px;"></mat-radio-button>
+            <mat-radio-button value="D" style="margin-right: 60px;"></mat-radio-button>
+        </mat-radio-group>
+        <div style="width:80%;margin:10px auto;">
+          <div #editor style="height: 200px;"></div>
+        </div>
+    </mat-step>
+
+    <!-- Extra -->
+    <mat-step>
+      <ng-template matStepLabel>Extra Information</ng-template>
+      <!-- Type -->
+      <mat-form-field>
+        <mat-select [(ngModel)]="question.question_type" placeholder="Question Type">
+          <mat-option *ngFor="let type of QuestionType" [value]="type">{{type}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Content -->
+      <mat-form-field>
+        <mat-select [(ngModel)]="question.content_type" placeholder="Content Type">
+          <mat-option *ngFor="let content of ContentType" [value]="content">{{content}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Skill -->
+      <mat-form-field>
+            <input   matInput [(ngModel)]="question.skill_profile" placeholder="Skill Profile">
+      </mat-form-field>
+      <!-- Difficulty -->
+      <mat-form-field>
+        <mat-select [(ngModel)]="question.difficulty_level" placeholder="Question Difficulty">
+          <mat-option *ngFor="let difficulty of Difficulty" [value]="difficulty">{{difficulty}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Duration -->
+      <mat-form-field>
+        <input type="number" min="0" matInput [(ngModel)]="question.duration" placeholder="Duration">
+      </mat-form-field>
+      <!-- Pic -->
+      <mat-form-field>
+          <input   matInput [(ngModel)]="question.question_picture" placeholder="Pic Url">
+      </mat-form-field>
+    </mat-step>
+
+    <!-- Preview -->
+    <mat-step>
+      <ng-template matStepLabel>Preview</ng-template>
+      <h4 style="font: 1em sans-serif;">Press
+        <i class="material-icons" style="color: red">done</i> to preview the Question.</h4>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-mini-fab color='warn' style="float: right;" (click)="Done()">
+          <i class="material-icons">done</i>
+        </button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</div>
+
+
